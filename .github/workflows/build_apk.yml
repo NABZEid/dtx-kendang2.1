@@ -21,6 +21,16 @@ jobs:
           if [ ! -d android ]; then
             flutter create --platforms=android --project-name dtx_kendang --org com.nabze .
           fi
+      - name: Paksa compileSdk 36 untuk semua plugin (cadangan)
+        run: |
+          mkdir -p ~/.gradle/init.d
+          cat > ~/.gradle/init.d/force-compilesdk.gradle <<'GRADLE'
+          gradle.afterProject { p ->
+            if (p.plugins.hasPlugin('com.android.library')) {
+              p.extensions.getByName('android').compileSdkVersion(36)
+            }
+          }
+          GRADLE
       - run: flutter pub get
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4

@@ -16,3 +16,8 @@ dependencies:
 
 flutter:
   uses-material-design: true
+
+# Perbaikan build: versi baru flutter_plugin_android_lifecycle minta compileSdk 36,
+# sedangkan file_picker dikompilasi dengan 34. Pin ke versi yang cocok.
+dependency_overrides:
+  flutter_plugin_android_lifecycle: 2.0.24
